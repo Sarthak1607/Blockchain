@@ -1,0 +1,557 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+</head>
+
+<body>
+    <nav class="fmcg_navbar">
+        <a class="fmcg_head" href="#purch_order">Healthcare Medical Records</a>
+        <div class="nav_options">
+            <ul class="nav nav-tabs" id="tabs_list" role="tablist">
+                <!-- <li class="nav-item" role="presentation">
+                    <a class="nav-link nav_option_tab active" id="home_tab" data-toggle="tab" href="#home" role="tab"
+                        aria-controls="home" aria-selected="true">Home</a>
+                </li> -->
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link nav_option_tab active" id="purch_order_tab" data-toggle="tab" href="#purch_order"
+                        role="tab" aria-controls="purch_order" aria-selected="false">Patient Logs</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="tab-content" id="tab_content">
+        <!-- <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home_tab">
+            <div class="opaque_container"></div>
+            <img class="fmcg_main_img" src="fmcg_products.jpg">
+            <div class="dash_container p-3">
+                <div class="fmcg_dashboard">
+                    <div class="row p-2">
+                        <div class="graph_box col-md-2 ml-3" id="purch_order_count">
+                            <a class="graph_title">Purchase Order Count</a>
+                            <h3 class="purch_order_val">228</h3>
+                        </div>
+                        <div class="graph_box col-md-2 ml-3" id="on_time_del_rate">
+                            <a class="graph_title">On Time Delivery Rate</a>
+                            <h3 class="on_time_del_rate_val">86%</h3>
+                        </div>
+                        <div class="graph_box col-md-2 ml-3" id="in_transit_goods_count">
+                            <a class="graph_title">In Transit Goods Count</a>
+                            <h3 class="in_transit_goods_count_val">65</h3>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="graph_box col-md-6 mt-3 ml-3" id="purch_order_month_wise">
+                            <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="tab-pane fade show active" id="purch_order">
+            <div class="purch_ord_back container pt-4">
+                <ul class="nav nav-pills">
+                    <li class="create_po_tab">
+                        <a class="active" id="create_po_text" data-toggle="pill" href="#create_po">Patient Details</a>
+                    </li>
+                    <li class="view_po_tab">
+                        <a id="view_po_text" data-toggle="pill" href="#view_po">View Chain</a>
+                    </li>
+                    <!-- <li class="view_po_tab">
+                        <a id="view_po_text" data-toggle="pill" href="#view_po">View</a>
+                    </li> -->
+                </ul>
+                <div class="tab-content">
+                    <div id="create_po" class="tab-pane fade show active">
+                        <form class="po_form p-4" method="POST">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="form_po_num" class="col-md-5">Patient ID</label>
+                                        <input type="text" id="form_po_num" class="col-md-6" name="form_po_num"
+                                            placeholder="Enter Patient ID">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="form_po_date" class="col-md-5">Patient Name</label>
+                                        <input type="text" id="form_po_date" class="col-md-6" name="form_po_date"
+                                            placeholder="Enter Patient Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="form_vname" class="col-md-5">Age</label>
+                                        <input type="text" id="form_vname" class="col-md-6" name="form_vname"
+                                            placeholder="Enter Age">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="form_vlname" class="col-md-5">Gender</label>
+                                        <input type="text" id="form_vlname" class="col-md-6" name="form_vlname"
+                                            placeholder="Enter Gender">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="form_fname" class="col-md-5">Address</label>
+                                        <input type="text" id="form_fname" class="col-md-6" name="form_fname"
+                                            placeholder="Enter Address">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="form_lname" class="col-md-5">Blood Group</label>
+                                        <input type="text" id="form_lname" class="col-md-6" name="form_lname"
+                                            placeholder="Enter Blood Group">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="form_bill_address" class="col-md-5">Phone Number</label>
+                                        <input type="text" id="form_bill_address" class="col-md-6"
+                                            name="form_bill_address" placeholder="Enter Phone Number">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="form_ship_address" class="col-md-5">Email ID</label>
+                                        <input type="text" id="form_ship_address" class="col-md-6"
+                                            name="form_ship_address" placeholder="Enter Email ID">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-12 mt-3">
+                                <h2>Items</h2>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <table>
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>Contact</th>
+                                        <th>Country</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" id="lname" class="col-md-6" name="lastname"
+                                                placeholder="Your last name.."></td>
+                                        <td><input type="text" id="lname" class="col-md-6" name="lastname"
+                                                placeholder="Your last name.."></td>
+                                        <td><input type="text" id="lname" class="col-md-6" name="lastname"
+                                                placeholder="Your last name.."></td>
+                                        <td><button class="items_add"><i class="fa fa-add"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Centro comercial Moctezuma</td>
+                                        <td>Francisco Chang</td>
+                                        <td>Mexico</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ernst Handel</td>
+                                        <td>Roland Mendel</td>
+                                        <td>Austria</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Island Trading</td>
+                                        <td>Helen Bennett</td>
+                                        <td>UK</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Laughing Bacchus Winecellars</td>
+                                        <td>Yoshi Tannamuri</td>
+                                        <td>Canada</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Magazzini Alimentari Riuniti</td>
+                                        <td>Giovanni Rovelli</td>
+                                        <td>Italy</td>
+                                    </tr>
+                                </table>
+                            </div> -->
+                            <button class="po_form_submit css_submit_button" type="submit">Register</button>
+                        </form>
+                    </div>
+                    <div id="view_po" class="tab-pane fade">
+                        <button class="validate_blockchain">Validate</button>
+                        <button class="connect_nodes_blockchain">Connect Nodes</button>
+                        <button class="replace_chain">Replace Chain</button>
+                        <div class="fmcg_block"></div>
+                    </div>
+                    <div id="view_po" class="tab-pane fade">
+                        <div class="fmcg_block"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal content -->
+            <div id="myModal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Modal Title</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="modal_msg"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+            var yValues = [55, 49, 44, 24, 15];
+            var barColors = ["red", "green", "blue", "orange", "brown"];
+
+            new Chart("myChart", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                },
+                options: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: "World Wine Production 2018"
+                    }
+                }
+            });
+
+            $(document).on('submit', '.po_form', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '/fmcg_action',
+                    data: {
+                        form_po_num: $("#form_po_num").val(),
+                        form_po_date: $("#form_po_date").val(),
+                        form_vname: $("#form_vname").val(),
+                        form_vlname: $("#form_vlname").val(),
+                        form_fname: $("#form_fname").val(),
+                        form_lname: $("#form_lname").val(),
+                        form_bill_address: $("#form_bill_address").val(),
+                        form_ship_address: $("#form_ship_address").val()
+                    },
+                    success: function (response) {
+                        $("#myModal").modal('show');
+                        $(".modal_msg").text(response.message);
+                    }
+                })
+            });
+
+            $(document).on('click', '#view_po_text', function (e) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/get_chain',
+                    success: function (response) {
+                        $(".fmcg_block").empty();
+                        if (response.length > 0) {
+                            $(response).each(function () {
+                                var chain = $(this)[0]["chain"]
+                                $(chain).each(function () {
+                                    if ($(this)[0].transactions.length == 0) {
+                                        $(".fmcg_block").append("<div class='blc_block m-4'><div class='block_div blck_prev_hash'><p class='block_topic_fnt_size'>Previous Hash:</p>" + $(this)[0].previous_hash +
+                                            "</div><div class='block_div blck_proof'><p class='block_topic_fnt_size'>Proof:</p>" + $(this)[0].proof + "</div><div class='block_div blck_timestamp'><p class='block_topic_fnt_size'>Timestamp:</p>" + $(this)[0].timestamp + "</div>")
+                                    } else {
+                                        $(".fmcg_block").append("<div class='blc_block m-4'><div class='block_div blck_prev_hash'><p class='block_topic_fnt_size'>Previous Hash:</p>" + $(this)[0].previous_hash +
+                                            "</div><div class='block_div blck_proof'><p class='block_topic_fnt_size'>Proof:</p>" + $(this)[0].proof + "</div><div class='block_div blck_timestamp'><p class='block_topic_fnt_size'>Timestamp:</p>" + $(this)[0].timestamp + "</div>" +
+                                            "<div class='block_div blck_po_number'><p class='block_topic_fnt_size'>Patient ID:</p>" + $(this)[0].transactions[0].po_number + "</div><div class='block_div blck_po_date'><p class='block_topic_fnt_size'>Patient Name:</p>" + $(this)[0].transactions[0]["po_date"] + "</div>" +
+                                            "<div class='block_div blck_first_name'><p class='block_topic_fnt_size'>Address:</p>" + $(this)[0].transactions[0]["first_name"] + "</div><div class='block_div blck_last_name'><p class='block_topic_fnt_size'>Blood Group:</p>" + $(this)[0].transactions[0]["last_name"] + "</div>" +
+                                            "<div class='block_div blck_vend_name'><p class='block_topic_fnt_size'>Age:</p>" + $(this)[0].transactions[0]["vend_name"] + "</div><div class='block_div blck_vend_last_name'><p class='block_topic_fnt_size'>Gender:</p>" + $(this)[0].transactions[0]["vend_last_name"] + "</div>" +
+                                            "<div class='block_div blck_bill_address'><p class='block_topic_fnt_size'>Phone Number:</p>" + $(this)[0].transactions[0]["bill_address"] + "</div><div class='block_div blck_ship_addresss'><p class='block_topic_fnt_size'>Email Address:</p>" + $(this)[0].transactions[0]["ship_address"] + "</div>")
+                                    }
+                                });
+                            });
+                        }
+
+                        // $(".fmcg_block").text(response)
+                    }
+                })
+            });
+
+            $(document).on('click', '.validate_blockchain', function (e) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/is_valid',
+                    success: function (response) {
+                        $("#myModal").modal('show');
+                        $(".modal_msg").text(response.message);
+                    }
+                })
+            });
+
+            $(document).on('click', '.connect_nodes_blockchain', function (e) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/connect_node',
+                    success: function (response) {
+                        $("#myModal").modal('show');
+                        $(".modal_msg").append("<p>" + response.message + "</p>");
+                        $(".modal_msg").append("<p>" + response.total_nodes + "</p>")
+                    }
+                })
+            });
+
+            $(document).on('click', '.replace_chain', function (e) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/replace_chain',
+                    success: function (response) {
+                        $("#myModal").modal('show');
+                        $(".modal_msg").text(response.message);
+                    }
+                })
+            });
+        </script>
+</body>
+
+<head>
+    <style>
+
+
+
+
+        body {
+            overflow: hidden;
+        }
+
+        .fmcg_navbar {
+            background-color: #3666d0;
+            color: #fff;
+        }
+
+        .fmcg_head {
+            color: #fff;
+            font-size: 30px;
+            font-weight: 500;
+        }
+
+        .nav_options {
+            float: right;
+        }
+
+        .nav_option_tab {
+            color: #fff;
+        }
+
+        .dash_container {
+            /* box-shadow: 0px 0px 5px 3px #efefef; */
+            background-color: #e8e8e8;
+            /* width: 99%; */
+            /* margin-left: 19px; */
+        }
+
+        .graph_box {
+            text-align: center;
+            box-shadow: 0px 0px 7px 4px #cbcbcb;
+        }
+
+        .graph_title {
+            color: #dbdbdb;
+            font-weight: 500;
+        }
+
+        #purch_order_count {
+            background-color: #ed143dfa;
+        }
+
+        .purch_order_val {
+            color: #fff;
+            font-size: 50px;
+        }
+
+        #on_time_del_rate {
+            background-color: cadetblue;
+        }
+
+        .on_time_del_rate_val {
+            color: #fff;
+            font-size: 50px;
+        }
+
+        #in_transit_goods_count {
+            background-color: #fc8803;
+        }
+
+        .in_transit_goods_count_val {
+            color: #fff;
+            font-size: 50px;
+        }
+
+        .fmcg_main_img {
+            width: -webkit-fill-available;
+            height: 200px;
+        }
+
+        .opaque_container {
+            position: absolute;
+            width: -webkit-fill-available;
+            height: 200px;
+            background-color: black;
+            opacity: 30%;
+        }
+
+        .fmcg_dashboard {
+            background-color: #fff;
+            box-shadow: 0px 0px 5px 5px #b4b4b4;
+        }
+
+        #purch_order {
+            background-color: #e8e8e8;
+            height: 92%;
+            background-image: url("https://image.freepik.com/free-photo/blur-hospital_1203-7972.jpg");
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .purch_ord_back li {
+            padding: 7px;
+            background-color: #fff;
+            font-weight: 500;
+        }
+
+        .purch_ord_back li .active {
+            border-style: solid;
+            border: 5px solid;
+            border-right-color: transparent;
+            border-left-color: transparent;
+            border-bottom-color: transparent;
+            /* border-top-color: #12909a; */
+            background-color: #fff;
+            color: #12909a !important;
+            /* border-radius: 6px; */
+            /* padding: 7px; */
+            font-weight: 500;
+        }
+
+        #create_po,
+        #view_po {
+            min-height: 100px;
+            background-color: #fff;
+            padding: 1px;
+        }
+
+        #create_po_text,
+        #view_po_text {
+            color: #626262 !important;
+        }
+
+        .purch_ord_back #create_po_text.active,
+        .purch_ord_back #view_po_text.active {
+            color: #3666d0 !important;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        .fmcg_block {
+            width: 1050px;
+            border: 2px solid;
+            margin: 20px;
+            height: 425px;
+            display: flex;
+            overflow: scroll;
+        }
+
+        .blc_block {
+            box-shadow: 0px 0px 5px 3px #bfbfbf;
+            width: fit-content;
+            height: fit-content;
+        }
+        ::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: red; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
+}
+        .block_div {
+            border-bottom: 1px solid;
+            font-size: 13px;
+            word-break: break-all;
+        }
+
+        .block_topic_fnt_size {
+            font-weight: 700;
+        }
+
+        .po_form_submit {
+            background-color: #3666d0;
+            border: none;
+            color: #fff;
+            padding: 10px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            margin-left: auto;
+            margin-right: 53px;
+            margin-top: 20px;
+        }
+
+        .css_submit_button {
+            box-shadow: 0 18px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0, 0.19);
+        }
+
+        .po_form_submit:hover {
+            background-color: #3666d0;
+        }
+
+        .fmcg_block {
+            width: 1050px;
+            display: flex;
+            overflow-x: scroll;
+        }
+
+        .blc_block {
+            width: 250px;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+</html>
